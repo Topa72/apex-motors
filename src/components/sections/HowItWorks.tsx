@@ -28,7 +28,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="garage" className="section-y bg-background">
+    <section id="achat" className="section-y bg-card">
       <div className="container-site">
         <SectionHeading eyebrow="Acheter chez nous" title="Comment se passe un achat" />
 
@@ -56,7 +56,7 @@ export function HowItWorks() {
             {steps.map((s, i) => (
               <li key={s.title} className="flex gap-5 md:block">
                 <motion.span
-                  className="num relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground ring-[6px] ring-background"
+                  className="num relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground ring-[6px] ring-card"
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true, margin: '-80px 0px' }}

@@ -6,7 +6,7 @@ import { Sheet } from '@/components/ui/sheet'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { images } from '@/data/images'
 import { MAKES, inventory, type InventoryFilters, type Make } from '@/data/inventory'
-import { EASE_OUT, cn, formatEUR } from '@/lib/utils'
+import { EASE_OUT, GARAGE_CITY, NETWORK_LABEL, cn, formatEUR } from '@/lib/utils'
 
 const h1Lines = ['Révisé. Garanti.', 'Prêt à rouler', 'dès aujourd’hui.']
 const paymentCaps = [150, 200, 250, 300, 400, 500]
@@ -110,7 +110,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT }}
             >
-              Entretien · Réparation · {inventory.length} occasions en stock
+              {GARAGE_CITY} · {inventory.length} occasions en stock
             </motion.p>
 
             <h1
@@ -136,8 +136,8 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.4, ease: EASE_OUT }}
             >
-              Entretien et réparation de votre Citroën par des techniciens formés à la marque, et des occasions
-              révisées dans notre atelier, garanties jusqu’à 24 mois. Prix affichés, sans négociation interminable.
+              Des occasions Citroën et toutes marques, révisées et préparées par notre atelier de {NETWORK_LABEL},
+              garanties jusqu’à 24 mois. Prix affichés, financement et reprise sur place.
             </motion.p>
 
             <motion.div
@@ -150,8 +150,8 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
                 Voir les occasions
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
-              <a href="#atelier" className="btn-ghost">
-                Prendre rendez-vous atelier
+              <a href="#reprise" className="btn-ghost">
+                Estimer ma reprise
               </a>
             </motion.div>
           </div>

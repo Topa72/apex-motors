@@ -133,7 +133,7 @@ export function Inventory({ filters, setFilters }: InventoryProps) {
       <div className="container-site">
         <SectionHeading eyebrow="Véhicules d’occasion" title="Nos occasions en stock">
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            Citroën et reprises toutes marques, révisées dans notre atelier avant la vente. Contrôle technique de
+            Citroën et reprises toutes marques, révisées par notre atelier avant la vente. Contrôle technique de
             moins de 6 mois, carnet d’entretien à jour, garantie incluse.
           </p>
         </SectionHeading>

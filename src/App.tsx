@@ -6,7 +6,6 @@ import { Inventory } from '@/components/sections/Inventory'
 import { Financing } from '@/components/sections/Financing'
 import { TradeIn } from '@/components/sections/TradeIn'
 import { HowItWorks } from '@/components/sections/HowItWorks'
-import { Service } from '@/components/sections/Service'
 import { Reviews } from '@/components/sections/Reviews'
 import { FinalCTA } from '@/components/sections/FinalCTA'
 import { Footer } from '@/components/sections/Footer'
@@ -33,7 +32,6 @@ export default function App() {
         <Hero onQuickSearch={handleQuickSearch} />
         <TrustStrip />
         <Inventory filters={filters} setFilters={setFilters} />
-        <Service />
         <Financing />
         <TradeIn />
         <HowItWorks />

@@ -1,6 +1,6 @@
 import { ArrowRight, Phone } from 'lucide-react'
 import { FadeUp } from '@/components/FadeUp'
-import { PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
+import { GARAGE_CITY, OPENING_HOURS, PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
 
 export function FinalCTA() {
   return (
@@ -18,10 +18,9 @@ export function FinalCTA() {
       />
       <div className="container-site section-y relative flex flex-col gap-10 text-white lg:flex-row lg:items-center lg:justify-between">
         <FadeUp className="min-w-0 max-w-3xl lg:flex-1">
-          <h2 className="h2 lg:text-[56px]">Un seul garage pour l’acheter et l’entretenir.</h2>
+          <h2 className="h2 lg:text-[56px]">Votre prochaine voiture vous attend à <span className="whitespace-nowrap">{GARAGE_CITY}</span>.</h2>
           <p className="mt-4 text-lg font-normal text-white/85">
-            Essayez votre prochaine voiture cette semaine, et confiez-nous son entretien ensuite. Sur rendez-vous ou
-            directement au garage.
+            Appelez-nous avant de venir : le véhicule sera prêt pour l’essai à votre arrivée. {OPENING_HOURS}.
           </p>
         </FadeUp>
         <FadeUp i={2} className="flex shrink-0 flex-col items-start gap-5 lg:items-end">

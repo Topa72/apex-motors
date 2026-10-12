@@ -64,7 +64,7 @@ export function Financing() {
   }
 
   return (
-    <section id="financement" className="section-y relative bg-background">
+    <section id="financement" className="section-y relative bg-card">
       <div className="container-site grid items-center gap-12 md:grid-cols-2 md:gap-10 lg:gap-20">
         <div>
           <SectionHeading eyebrow="Financement" title="Connaissez votre mensualité avant de venir">

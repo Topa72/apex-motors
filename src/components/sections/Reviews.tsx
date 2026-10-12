@@ -17,22 +17,22 @@ const reviews = [
   },
   {
     quote:
-      'Je fais entretenir ma Berlingo ici depuis quatre ans. Devis clair, délais tenus, et on m’explique ce qui a été fait.',
+      'Berlingo d’occasion pour la famille, carte grise faite et révision à jour à la livraison. Rien à prévoir en rentrant.',
     name: 'Sandrine L.',
-    context: 'Cliente de l’atelier',
+    context: 'Achat d’un Citroën Berlingo',
   },
 ]
 
 export function Reviews() {
   return (
-    <section id="avis" className="section-y bg-card">
+    <section id="avis" className="section-y bg-background">
       <div className="container-site">
         <SectionHeading eyebrow="Avis clients" title="Ils nous ont confié leur voiture" />
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {reviews.map((r, i) => (
             <FadeUp key={r.name} i={i}>
-              <figure className="relative flex h-full flex-col rounded-xl border border-border bg-card-elevated p-7">
+              <figure className="relative flex h-full flex-col rounded-xl border border-border bg-card p-7">
                 <Quote className="absolute right-6 top-6 h-8 w-8 text-primary/15" aria-hidden />
                 <div className="flex gap-1 text-primary" role="img" aria-label="5 étoiles sur 5">
                   {Array.from({ length: 5 }, (_, s) => (

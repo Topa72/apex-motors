@@ -6,10 +6,10 @@ import { EASE_OUT, PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
 
 const links = [
   { label: 'Occasions', href: '#occasions' },
-  { label: 'Atelier', href: '#atelier' },
   { label: 'Financement', href: '#financement' },
   { label: 'Reprise', href: '#reprise' },
-  { label: 'Le garage', href: '#garage' },
+  { label: 'Comment acheter', href: '#achat' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export function Navbar() {
@@ -39,12 +39,12 @@ export function Navbar() {
         <nav className="container-site flex h-full items-center justify-between gap-6" aria-label="Navigation principale">
           <Logo />
 
-          <ul className="hidden items-center gap-8 lg:flex">
+          <ul className="hidden items-center gap-7 xl:flex">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
+                  className="whitespace-nowrap text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
                 >
                   {l.label}
                 </a>
@@ -52,19 +52,19 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden items-center gap-6 lg:flex">
-            <a href={PHONE_HREF} className="hidden items-center gap-2 text-sm font-semibold tabular-nums xl:flex">
+          <div className="hidden shrink-0 items-center gap-6 xl:flex">
+            <a href={PHONE_HREF} className="flex items-center gap-2 whitespace-nowrap text-sm font-semibold tabular-nums">
               <Phone className="h-4 w-4 text-primary" aria-hidden />
               {PHONE_DISPLAY}
             </a>
-            <a href="#occasions" className="btn-primary px-5 py-2.5">
+            <a href="#occasions" className="btn-primary whitespace-nowrap px-5 py-2.5">
               Voir les occasions
             </a>
           </div>
 
           <button
             type="button"
-            className="-mr-2 rounded-full p-2 text-foreground lg:hidden"
+            className="-mr-2 rounded-full p-2 text-foreground xl:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
@@ -79,7 +79,7 @@ export function Navbar() {
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 top-[76px] z-[35] flex flex-col bg-background px-6 pb-10 pt-8 lg:hidden"
+            className="fixed inset-0 top-[76px] z-[35] flex flex-col bg-background px-6 pb-10 pt-8 xl:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
