@@ -25,7 +25,9 @@ export function monthlyPayment(principal: number, apr: number, termMonths: numbe
 
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
-export const GARAGE_NAME = 'Garage Citroën'
+// Modifiables sans toucher au code : VITE_GARAGE_NAME / VITE_GARAGE_TAGLINE dans un fichier .env
+export const GARAGE_NAME: string = import.meta.env.VITE_GARAGE_NAME || 'Garage Citroën'
+export const GARAGE_TAGLINE: string = import.meta.env.VITE_GARAGE_TAGLINE || 'Entretien · Occasions'
 export const PHONE_DISPLAY = '01 99 00 45 12'
 export const PHONE_HREF = 'tel:+33199004512'
 

@@ -1,5 +1,5 @@
 import { Wrench } from 'lucide-react'
-import { GARAGE_NAME, cn } from '@/lib/utils'
+import { GARAGE_NAME, GARAGE_TAGLINE, cn } from '@/lib/utils'
 
 export function Logo({ className }: { className?: string }) {
   return (
@@ -10,7 +10,7 @@ export function Logo({ className }: { className?: string }) {
       <span className="flex flex-col leading-none">
         <span className="font-display text-[19px] font-extrabold tracking-[-0.02em]">{GARAGE_NAME}</span>
         <span className="mt-1 font-sans text-[9px] font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-          Entretien · Occasions
+          {GARAGE_TAGLINE}
         </span>
       </span>
     </a>
