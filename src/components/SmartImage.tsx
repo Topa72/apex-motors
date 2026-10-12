@@ -2,17 +2,17 @@ import { useState, type ImgHTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
 interface SmartImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  /** Short caption shown on the fallback if the photo can't load. */
+  /** Légende affichée sur le visuel de remplacement. */
   label?: string
 }
 
 /**
- * Image that degrades to an on-brand studio backdrop instead of a broken icon.
+ * Image qui se replie sur un fond studio aux couleurs du site au lieu d'une icône cassée.
  */
 export function SmartImage({ className, label, alt, onError, ...props }: SmartImageProps) {
   const [failed, setFailed] = useState(false)
 
-  if (failed) {
+  if (failed || !props.src) {
     return (
       <div
         role="img"
@@ -36,7 +36,7 @@ export function SmartImage({ className, label, alt, onError, ...props }: SmartIm
           <circle cx="306" cy="92" r="24" fill="currentColor" />
         </svg>
         {label ? (
-          <span className="relative m-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+          <span className="relative m-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40 transition-opacity duration-300 group-hover:opacity-0">
             {label}
           </span>
         ) : null}

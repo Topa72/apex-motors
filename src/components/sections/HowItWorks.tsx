@@ -5,32 +5,32 @@ import { EASE_OUT } from '@/lib/utils'
 
 const steps = [
   {
-    title: 'Browse',
-    duration: 'As long as you like',
-    body: 'Filter by payment rather than sticker price if that is how you actually budget. Every listing shows both.',
+    title: 'Choisir',
+    duration: 'À votre rythme',
+    body: 'Filtrez par mensualité plutôt que par prix si c’est ainsi que vous budgétez. Chaque annonce affiche les deux.',
   },
   {
-    title: 'Pre-qualify',
+    title: 'Financer',
     duration: '2 minutes',
-    body: 'Soft credit check gives you a real rate and a real budget before anyone shakes your hand.',
+    body: 'Une étude de financement en ligne vous donne un vrai taux et un vrai budget avant de vous déplacer.',
   },
   {
-    title: 'Test drive',
-    duration: '30–45 minutes',
-    body: 'Take it on the highway, not around the block. Bring your car seat and check that it fits.',
+    title: 'Essayer',
+    duration: '30 à 45 minutes',
+    body: 'Prenez la voie rapide, pas seulement le tour du pâté de maisons. Venez avec le siège auto pour vérifier qu’il rentre.',
   },
   {
-    title: 'Sign and go',
-    duration: 'About an hour',
-    body: 'Paperwork is prepared before you arrive. No surprise add-ons in the finance office, because we do not sell them there.',
+    title: 'Repartir',
+    duration: 'Environ 1 heure',
+    body: 'Carte grise, contrôle technique et révision sont faits avant votre venue. Vous signez et vous repartez au volant.',
   },
 ]
 
 export function HowItWorks() {
   return (
-    <section id="about" className="section-y bg-card">
+    <section id="garage" className="section-y bg-card">
       <div className="container-site">
-        <SectionHeading eyebrow="The process" title="How Buying Works Here" />
+        <SectionHeading eyebrow="Acheter chez nous" title="Comment se passe un achat" />
 
         <motion.div
           className="relative mt-12 md:mt-16"
@@ -38,7 +38,7 @@ export function HowItWorks() {
           whileInView="shown"
           viewport={{ once: true, margin: '-80px 0px' }}
         >
-          {/* Connecting line: horizontal on desktop, vertical on mobile */}
+          {/* Ligne de liaison : horizontale sur ordinateur, verticale sur mobile */}
           <motion.div
             aria-hidden
             className="absolute left-5 right-[calc((100%-96px)/4-20px)] top-5 hidden h-px origin-left bg-gradient-to-r from-primary via-primary to-primary/30 md:block"

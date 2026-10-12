@@ -17,26 +17,26 @@ export default function App() {
 
   const handleQuickSearch = useCallback((q: QuickSearch) => {
     setFilters({ ...defaultFilters, ...q })
-    document.getElementById('inventory')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('occasions')?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
   return (
     <>
       <a
-        href="#inventory"
+        href="#occasions"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
       >
-        Skip to inventory
+        Aller aux occasions
       </a>
       <Navbar />
       <main>
         <Hero onQuickSearch={handleQuickSearch} />
         <TrustStrip />
         <Inventory filters={filters} setFilters={setFilters} />
+        <Service />
         <Financing />
         <TradeIn />
         <HowItWorks />
-        <Service />
         <Reviews />
         <FinalCTA />
       </main>

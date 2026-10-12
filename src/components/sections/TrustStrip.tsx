@@ -1,16 +1,16 @@
 import { motion } from 'motion/react'
-import { BadgeCheck, ClipboardCheck, RotateCcw, Star } from 'lucide-react'
+import { ClipboardCheck, ShieldCheck, Star, Wrench } from 'lucide-react'
 
 const items = [
-  { icon: BadgeCheck, label: 'No-haggle pricing' },
-  { icon: RotateCcw, label: '7-day return policy' },
-  { icon: ClipboardCheck, label: '172-point inspection' },
-  { icon: Star, label: '4.8★ from 2,100+ reviews' },
+  { icon: ShieldCheck, label: 'Occasions garanties 12 à 24 mois' },
+  { icon: ClipboardCheck, label: 'Contrôle en 100 points à l’atelier' },
+  { icon: Wrench, label: 'Techniciens formés Citroën' },
+  { icon: Star, label: '4,8/5 sur 320 avis clients' },
 ]
 
 export function TrustStrip() {
   return (
-    <section aria-label="Why buy from Apex" className="border-y border-border bg-card">
+    <section aria-label="Nos engagements" className="border-y border-border bg-card">
       <ul className="container-site grid grid-cols-2 gap-x-4 gap-y-5 py-6 md:grid-cols-4 md:py-7">
         {items.map(({ icon: Icon, label }, i) => (
           <li key={label} className="flex items-center gap-3 md:justify-center">

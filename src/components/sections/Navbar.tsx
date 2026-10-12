@@ -5,11 +5,11 @@ import { Logo } from '@/components/Logo'
 import { EASE_OUT, PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
 
 const links = [
-  { label: 'Inventory', href: '#inventory' },
-  { label: 'Financing', href: '#financing' },
-  { label: 'Trade-In', href: '#trade-in' },
-  { label: 'Service', href: '#service' },
-  { label: 'About', href: '#about' },
+  { label: 'Occasions', href: '#occasions' },
+  { label: 'Atelier', href: '#atelier' },
+  { label: 'Financement', href: '#financement' },
+  { label: 'Reprise', href: '#reprise' },
+  { label: 'Le garage', href: '#garage' },
 ]
 
 export function Navbar() {
@@ -36,7 +36,7 @@ export function Navbar() {
         className="fixed inset-x-0 top-0 z-40 h-[76px] border-b border-border backdrop-blur-xl transition-[background-color] duration-300"
         style={{ backgroundColor: `rgba(18, 20, 26, ${scrolled || open ? 0.92 : 0.7})` }}
       >
-        <nav className="container-site flex h-full items-center justify-between gap-6" aria-label="Main">
+        <nav className="container-site flex h-full items-center justify-between gap-6" aria-label="Navigation principale">
           <Logo />
 
           <ul className="hidden items-center gap-8 lg:flex">
@@ -53,12 +53,12 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-6 lg:flex">
-            <a href={PHONE_HREF} className="flex items-center gap-2 text-sm font-semibold tabular-nums">
+            <a href={PHONE_HREF} className="hidden items-center gap-2 text-sm font-semibold tabular-nums xl:flex">
               <Phone className="h-4 w-4 text-primary" aria-hidden />
               {PHONE_DISPLAY}
             </a>
-            <a href="#inventory" className="btn-primary px-5 py-2.5">
-              Browse Inventory
+            <a href="#occasions" className="btn-primary px-5 py-2.5">
+              Voir les occasions
             </a>
           </div>
 
@@ -66,7 +66,7 @@ export function Navbar() {
             type="button"
             className="-mr-2 rounded-full p-2 text-foreground lg:hidden"
             onClick={() => setOpen((o) => !o)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
             aria-controls="mobile-menu"
           >
@@ -106,10 +106,10 @@ export function Navbar() {
             <div className="mt-auto flex flex-col gap-3">
               <a href={PHONE_HREF} className="btn-outline h-14 text-base">
                 <Phone className="h-5 w-5 text-primary" aria-hidden />
-                Call {PHONE_DISPLAY}
+                Appeler le {PHONE_DISPLAY}
               </a>
-              <a href="#inventory" onClick={() => setOpen(false)} className="btn-primary h-14 text-base">
-                Browse Inventory
+              <a href="#occasions" onClick={() => setOpen(false)} className="btn-primary h-14 text-base">
+                Voir les occasions
               </a>
             </div>
           </motion.div>

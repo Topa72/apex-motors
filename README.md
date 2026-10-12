@@ -1,40 +1,34 @@
-# Apex Motors
+# Apex Automobiles
 
-High-gloss car dealership website for Apex Motors (Miami, FL): near-black surfaces, electric-blue accents, a filterable inventory grid and a live monthly payment calculator.
+Site vitrine d’un garage Citroën qui fait aussi la vente de véhicules d’occasion : annonces filtrables, simulateur de mensualité, atelier, reprise, avis et contact.
 
-**Stack:** React 19 · Vite · TypeScript · Tailwind CSS 3 · Motion (`motion/react`) · shadcn-style Radix UI primitives (Slider, Select, Dialog) · lucide-react
+**Technique :** React 19 · Vite · TypeScript · Tailwind CSS 3 · Motion (`motion/react`) · composants Radix au format shadcn (Slider, Select, Dialog) · lucide-react
 
-## Getting started
+## Lancer le site
 
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # type-check + production build
-npm run preview  # serve the build
+npm run build    # vérification TypeScript + build de production
+npm run preview  # sert le build
 npm run lint     # oxlint
 ```
 
-## Structure
+## Où modifier quoi
 
-```
-src/
-  App.tsx                    page composition; owns inventory filter state
-  index.css                  design tokens (CSS vars) + base/component classes
-  data/inventory.ts          vehicles, makes, types, filter logic
-  data/images.ts             all photography URLs in one place
-  lib/utils.ts               cn(), currency formatting, loan payment formula
-  components/
-    ui/                      slider, select, sheet (Radix, shadcn conventions)
-    sections/                Navbar, Hero, TrustStrip, Inventory, Financing,
-                             TradeIn, HowItWorks, Service, Reviews, FinalCTA, Footer
-    VehicleCard.tsx          card with hover zoom + spec reveal
-    SmartImage.tsx           <img> with an on-brand fallback if a photo fails
-    FadeUp.tsx               scroll-triggered fade-up (staggered)
-```
+| À changer | Fichier |
+| --- | --- |
+| Nom du garage, téléphone, taux et durée des mensualités affichées | `src/lib/utils.ts` |
+| Véhicules en stock (prix, km, carburant, garantie…) | `src/data/inventory.ts` |
+| Photos (accueil, reprise, annonces) | `src/data/images.ts` + dossier `public/photos/` |
+| Adresse, horaires, SIRET / ORIAS, mentions légales | `src/components/sections/Footer.tsx` |
+| Horaires de l’atelier, prestations | `src/components/sections/Service.tsx` |
+| Avis clients (actuellement des exemples) | `src/components/sections/Reviews.tsx` |
 
-## Notes
+## À compléter avant la mise en ligne
 
-- **Hero quick search** feeds the inventory filters (make, model text, max monthly payment) and scrolls to the grid; the payment cap and model show as removable chips in the sticky filter bar.
-- **Payment calculator** uses the standard amortisation formula at 6.9% APR; on mobile the monthly figure pins to the bottom of the screen while a slider is being dragged.
-- **Photography** comes from Unsplash placeholders in `src/data/images.ts`. Swap these for the dealership's own shots; if any URL fails, `SmartImage` shows a studio-gradient fallback instead of a broken image.
-- Motion respects `prefers-reduced-motion`.
+- Vraies coordonnées : adresse, téléphone (le 01 99 00 45 12 est un numéro fictif), horaires.
+- SIRET et numéro ORIAS (obligatoire si le garage propose du crédit comme intermédiaire).
+- Photos réelles des véhicules : sans photo, chaque annonce affiche un visuel neutre avec le nom du modèle.
+- Vrais avis clients et vraie note moyenne.
+- Les formulaires (reprise, recherche) fonctionnent dans la page mais n’envoient encore rien : il faut les relier à un e-mail ou à un outil de gestion.

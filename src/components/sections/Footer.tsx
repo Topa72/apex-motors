@@ -1,22 +1,22 @@
 import { Clock, MapPin, Phone } from 'lucide-react'
 import { Logo } from '@/components/Logo'
-import { PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
+import { CREDIT_WARNING, GARAGE_NAME, PHONE_DISPLAY, PHONE_HREF } from '@/lib/utils'
 
 const columns = [
   {
-    title: 'Inventory',
-    links: ['New vehicles', 'Certified pre-owned', 'SUVs & trucks', 'Electric & hybrid', 'Under $25,000'],
-    href: '#inventory',
+    title: 'Occasions',
+    links: ['Toutes nos occasions', 'Citroën', 'SUV & familiales', 'Électriques & hybrides', 'Moins de 10 000 €'],
+    href: '#occasions',
   },
   {
-    title: 'Financing & Trade-In',
-    links: ['Payment calculator', 'Get pre-qualified', 'Value my trade', 'Lease vs. buy'],
-    href: '#financing',
+    title: 'Financement & reprise',
+    links: ['Simulateur de mensualité', 'Demander une étude', 'Estimer ma reprise', 'Crédit ou LOA ?'],
+    href: '#financement',
   },
   {
-    title: 'Service & Contact',
-    links: ['Schedule service', 'Parts & accessories', 'Contact us', 'Directions'],
-    href: '#service',
+    title: 'Atelier & contact',
+    links: ['Prendre rendez-vous', 'Entretien & révision', 'Pneus & accessoires', 'Nous trouver'],
+    href: '#atelier',
   },
 ]
 
@@ -42,14 +42,14 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-4 text-sm text-muted-foreground">New &amp; certified pre-owned · Miami, Florida</p>
+            <p className="mt-4 text-sm text-muted-foreground">Garage Citroën · Atelier toutes marques · Véhicules d’occasion</p>
             <ul className="mt-6 space-y-3 text-sm">
               <li className="flex gap-3">
                 <MapPin className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
                 <address className="not-italic text-foreground/85">
-                  8800 Biscayne Boulevard
+                  12 rue des Artisans
                   <br />
-                  Miami, FL 33138
+                  00000 Votre ville
                 </address>
               </li>
               <li className="flex gap-3">
@@ -62,10 +62,10 @@ export function Footer() {
                 <Clock className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
                 <div className="text-foreground/85">
                   <p>
-                    <span className="text-muted-foreground">Sales:</span> Mon–Sat 9am–8pm · Sun 11am–6pm
+                    <span className="text-muted-foreground">Vente :</span> lun–sam 9h–12h · 14h–19h
                   </p>
                   <p>
-                    <span className="text-muted-foreground">Service:</span> Mon–Fri 7am–6pm · Sat 8am–4pm
+                    <span className="text-muted-foreground">Atelier :</span> lun–ven 8h–12h · 14h–18h30 · sam 8h30–12h
                   </p>
                 </div>
               </li>
@@ -104,20 +104,23 @@ export function Footer() {
 
         <div className="mt-16 border-t border-border py-8 text-xs leading-relaxed text-muted-foreground">
           <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:justify-between">
-            <p>© 2026 Apex Motors LLC. All rights reserved.</p>
+            <p>© 2026 {GARAGE_NAME}. Tous droits réservés.</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <span>Dealer License #DL-0448210</span>
+              <span>SIRET : à compléter · ORIAS : à compléter</span>
               <a href="#top" className="hover:text-foreground">
-                Privacy Policy
+                Mentions légales
               </a>
               <a href="#top" className="hover:text-foreground">
-                Accessibility
+                Confidentialité
+              </a>
+              <a href="#top" className="hover:text-foreground">
+                Cookies
               </a>
             </div>
           </div>
           <p className="mt-4 max-w-3xl text-muted-foreground/80">
-            Advertised payments are estimates and exclude tax, title, and dealer fees. Subject to credit approval.
-            Vehicle availability changes daily.
+            Mensualités indicatives hors assurance facultative, sous réserve d’acceptation du dossier par l’organisme
+            prêteur. Prix TTC, hors frais de carte grise. Disponibilité sous réserve de vente. {CREDIT_WARNING}
           </p>
         </div>
       </div>

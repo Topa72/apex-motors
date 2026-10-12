@@ -8,15 +8,15 @@ import { images } from '@/data/images'
 import { EASE_OUT } from '@/lib/utils'
 
 const steps = [
-  { title: 'Tell us about it', body: 'Year, make, model, mileage, and honest condition. Two minutes.' },
-  { title: 'Get a real number', body: 'Not a range. An actual offer, backed by our current auction and retail data.' },
+  { title: 'Décrivez-le', body: 'Année, marque, modèle, kilométrage et état réel. Deux minutes.' },
+  { title: 'Recevez un vrai prix', body: 'Pas une fourchette : une offre ferme, basée sur la cote du marché et nos ventes récentes.' },
   {
-    title: 'Bring it in',
-    body: 'We verify the condition, and if it matches, the offer stands. Apply it to a purchase or take a cheque.',
+    title: 'Déposez-le au garage',
+    body: 'Notre atelier vérifie l’état ; s’il correspond, l’offre est maintenue. Déduite de votre achat ou réglée par virement.',
   },
 ]
 
-const conditions = ['Excellent', 'Good', 'Fair', 'Needs work']
+const conditions = ['Excellent', 'Bon état', 'État moyen', 'Travaux à prévoir']
 const years = Array.from({ length: 20 }, (_, i) => String(2026 - i))
 
 export function TradeIn() {
@@ -30,14 +30,14 @@ export function TradeIn() {
   }
 
   return (
-    <section id="trade-in" className="bg-background">
+    <section id="reprise" className="bg-background">
       <div className="grid md:grid-cols-2">
-        {/* Image: car keys being handed across a counter, shallow depth of field, warm interior dealership lighting, candid moment */}
+        {/* Image : remise des clés au comptoir, faible profondeur de champ, lumière chaude du showroom */}
         <div className="relative h-[320px] overflow-hidden sm:h-[420px] md:h-auto md:min-h-full">
           <SmartImage
             src={images.tradeIn}
-            alt="Car keys being handed across a dealership counter"
-            label="Trade-in"
+            alt="Remise des clés au comptoir du garage"
+            label="Reprise"
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover object-center"
           />
@@ -46,7 +46,7 @@ export function TradeIn() {
 
         <div className="section-y px-6 md:px-10 lg:px-16">
           <div className="max-w-[560px]">
-            <SectionHeading eyebrow="Trade-in" title="Your Car Is Worth More Than You Think" />
+            <SectionHeading eyebrow="Reprise" title="Votre voiture vaut sans doute plus que vous ne pensez" />
 
             <ol className="mt-8 space-y-5">
               {steps.map((s, i) => (
@@ -75,12 +75,12 @@ export function TradeIn() {
                       role="status"
                     >
                       <CheckCircle2 className="h-10 w-10 text-success" aria-hidden />
-                      <p className="mt-4 font-display text-xl font-semibold">Thanks — your offer is on its way.</p>
+                      <p className="mt-4 font-display text-xl font-semibold">Merci, votre demande est bien reçue.</p>
                       <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                        An appraiser will text and email a firm number within one business hour.
+                        Nous vous envoyons une offre ferme par SMS et e-mail sous 24 h ouvrées.
                       </p>
                       <button type="button" onClick={() => setSubmitted(false)} className="mt-5 text-sm font-semibold text-primary">
-                        Value another vehicle
+                        Estimer un autre véhicule
                       </button>
                     </motion.div>
                   ) : (
@@ -90,12 +90,12 @@ export function TradeIn() {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.25 }}
                       className="grid grid-cols-2 gap-3"
-                      aria-label="Trade-in valuation"
+                      aria-label="Estimation de reprise"
                     >
                       <div>
                         <Select value={year} onValueChange={setYear} required name="year">
-                          <SelectTrigger className="h-12 w-full rounded-lg bg-background/70 font-normal" aria-label="Year">
-                            <SelectValue placeholder="Year" />
+                          <SelectTrigger className="h-12 w-full rounded-lg bg-background/70 font-normal" aria-label="Année">
+                            <SelectValue placeholder="Année" />
                           </SelectTrigger>
                           <SelectContent>
                             {years.map((y) => (
@@ -106,21 +106,21 @@ export function TradeIn() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <input className="field" name="make" placeholder="Make" aria-label="Make" required autoComplete="off" />
-                      <input className="field" name="model" placeholder="Model" aria-label="Model" required autoComplete="off" />
+                      <input className="field" name="make" placeholder="Marque" aria-label="Marque" required autoComplete="off" />
+                      <input className="field" name="model" placeholder="Modèle" aria-label="Modèle" required autoComplete="off" />
                       <input
                         className="field"
                         name="mileage"
-                        placeholder="Mileage"
-                        aria-label="Mileage"
+                        placeholder="Kilométrage"
+                        aria-label="Kilométrage"
                         inputMode="numeric"
-                        pattern="[0-9,]*"
+                        pattern="[0-9 .]*"
                         required
                       />
                       <div className="col-span-2">
                         <Select value={condition} onValueChange={setCondition} required name="condition">
-                          <SelectTrigger className="h-12 w-full rounded-lg bg-background/70 font-normal" aria-label="Condition">
-                            <SelectValue placeholder="Condition" />
+                          <SelectTrigger className="h-12 w-full rounded-lg bg-background/70 font-normal" aria-label="État">
+                            <SelectValue placeholder="État général" />
                           </SelectTrigger>
                           <SelectContent>
                             {conditions.map((c) => (
@@ -132,7 +132,7 @@ export function TradeIn() {
                         </Select>
                       </div>
                       <button type="submit" className="btn-primary col-span-2 mt-1 h-12 rounded-lg">
-                        Get My Offer
+                        Recevoir mon offre
                         <ArrowRight className="h-4 w-4" aria-hidden />
                       </button>
                     </motion.form>
@@ -140,7 +140,7 @@ export function TradeIn() {
                 </AnimatePresence>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Offers are good for 7 days and 500 miles, whether or not you buy from us.
+                Offre valable 7 jours et 500 km, que vous achetiez chez nous ou non.
               </p>
             </FadeUp>
           </div>

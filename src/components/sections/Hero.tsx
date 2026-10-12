@@ -5,16 +5,16 @@ import { SmartImage } from '@/components/SmartImage'
 import { Sheet } from '@/components/ui/sheet'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { images } from '@/data/images'
-import { MAKES, type InventoryFilters, type Make } from '@/data/inventory'
-import { EASE_OUT, TOTAL_IN_STOCK, cn } from '@/lib/utils'
+import { MAKES, inventory, type InventoryFilters, type Make } from '@/data/inventory'
+import { EASE_OUT, cn, formatEUR } from '@/lib/utils'
 
-const h1Lines = ['Find it. Finance it.', 'Drive it home', 'today.']
-const paymentCaps = [300, 400, 500, 600, 750, 1000]
+const h1Lines = ['Révisé. Garanti.', 'Prêt à rouler', 'dès aujourd’hui.']
+const paymentCaps = [150, 200, 250, 300, 400, 500]
 
 export type QuickSearch = Pick<InventoryFilters, 'make' | 'model' | 'maxMonthly'>
 
 function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => void; stacked?: boolean }) {
-  const [make, setMake] = useState<'All' | Make>('All')
+  const [make, setMake] = useState<'Toutes' | Make>('Toutes')
   const [model, setModel] = useState('')
   const [maxMonthly, setMaxMonthly] = useState('any')
 
@@ -29,16 +29,16 @@ function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => 
     <form
       onSubmit={submit}
       className={cn('grid gap-3', stacked ? 'grid-cols-1' : 'grid-cols-[1fr_1fr_1fr_auto]')}
-      aria-label="Quick inventory search"
+      aria-label="Recherche rapide de véhicules"
     >
       <label className="block">
-        <span className="sr-only">Make</span>
-        <Select value={make} onValueChange={(v) => setMake(v as 'All' | Make)}>
-          <SelectTrigger className={fieldTrigger} aria-label="Make">
-            <SelectValue placeholder="Make" />
+        <span className="sr-only">Marque</span>
+        <Select value={make} onValueChange={(v) => setMake(v as 'Toutes' | Make)}>
+          <SelectTrigger className={fieldTrigger} aria-label="Marque">
+            <SelectValue placeholder="Marque" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="All">Any make</SelectItem>
+            <SelectItem value="Toutes">Toutes marques</SelectItem>
             {MAKES.map((m) => (
               <SelectItem key={m} value={m}>
                 {m}
@@ -48,26 +48,26 @@ function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => 
         </Select>
       </label>
       <label className="block">
-        <span className="sr-only">Model</span>
+        <span className="sr-only">Modèle</span>
         <input
           className="field"
-          placeholder="Model"
+          placeholder="Modèle (ex. C3 Aircross)"
           value={model}
           onChange={(e) => setModel(e.target.value)}
           autoComplete="off"
         />
       </label>
       <label className="block">
-        <span className="sr-only">Max monthly payment</span>
+        <span className="sr-only">Mensualité maximale</span>
         <Select value={maxMonthly} onValueChange={setMaxMonthly}>
-          <SelectTrigger className={fieldTrigger} aria-label="Max monthly payment">
-            <SelectValue placeholder="Max monthly payment" />
+          <SelectTrigger className={fieldTrigger} aria-label="Mensualité maximale">
+            <SelectValue placeholder="Mensualité max." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="any">Max monthly payment</SelectItem>
+            <SelectItem value="any">Mensualité max.</SelectItem>
             {paymentCaps.map((p) => (
               <SelectItem key={p} value={String(p)}>
-                Up to ${p.toLocaleString('en-US')}/mo
+                Jusqu’à {formatEUR(p)}/mois
               </SelectItem>
             ))}
           </SelectContent>
@@ -75,7 +75,7 @@ function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => 
       </label>
       <button type="submit" className="btn-primary h-12 rounded-lg px-7">
         <Search className="h-4 w-4" aria-hidden />
-        Search
+        Rechercher
       </button>
     </form>
   )
@@ -86,10 +86,10 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
 
   return (
     <section id="top" className="relative isolate flex h-[85vh] min-h-[640px] items-center overflow-hidden md:h-screen md:min-h-[760px]">
-      {/* Image: sleek modern car on a wet city street at night, neon and streetlight reflections on the paint, cinematic automotive photography, deep blacks and electric blue highlights */}
+      {/* Image : voiture moderne sur une route mouillée de nuit, reflets bleutés sur la carrosserie, photo automobile cinématographique */}
       <SmartImage
         src={images.hero}
-        alt="Vehicle on a wet city street at night"
+        alt="Voiture sur une route mouillée, de nuit"
         className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         fetchPriority="high"
       />
@@ -111,7 +111,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT }}
             >
-              Miami, FL · {TOTAL_IN_STOCK} vehicles in stock · Open 7 days
+              Garage Citroën · Atelier toutes marques · {inventory.length} occasions en stock
             </motion.p>
 
             <h1
@@ -137,8 +137,8 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.4, ease: EASE_OUT }}
             >
-              New and certified pre-owned across twelve makes, with transparent pricing and no four-hour finance
-              office marathon.
+              Entretien et réparation de votre Citroën par des techniciens formés à la marque, et des occasions
+              révisées dans notre atelier, garanties jusqu’à 24 mois. Prix affichés, sans négociation interminable.
             </motion.p>
 
             <motion.div
@@ -147,17 +147,17 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.45, ease: EASE_OUT }}
             >
-              <a href="#inventory" className="btn-primary">
-                Browse Inventory
+              <a href="#occasions" className="btn-primary">
+                Voir les occasions
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
-              <a href="#trade-in" className="btn-ghost">
-                Value My Trade
+              <a href="#atelier" className="btn-ghost">
+                Prendre rendez-vous atelier
               </a>
             </motion.div>
           </div>
 
-          {/* Quick search: glassy card on desktop, sheet on mobile */}
+          {/* Recherche rapide : carte vitrée sur ordinateur, panneau sur mobile */}
           <motion.div
             className="mt-10 max-w-[920px] md:mt-12"
             initial={{ opacity: 0, scale: 0.97, boxShadow: '0 0 0 0 rgba(10,144,255,0)' }}
@@ -174,7 +174,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               className="flex h-14 w-full items-center gap-3 rounded-2xl border border-white/10 bg-[rgba(24,27,34,0.7)] px-5 text-left text-sm font-medium text-foreground/80 backdrop-blur-xl md:hidden"
             >
               <Search className="h-5 w-5 text-primary" aria-hidden />
-              Search inventory
+              Rechercher un véhicule
             </button>
           </motion.div>
         </div>
@@ -183,8 +183,8 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
       <Sheet
         open={sheetOpen}
         onOpenChange={setSheetOpen}
-        title="Search inventory"
-        description="Shop by make, model or the monthly payment you actually budget for."
+        title="Rechercher un véhicule"
+        description="Par marque, par modèle ou par la mensualité qui rentre dans votre budget."
       >
         <QuickSearchForm
           stacked

@@ -12,7 +12,7 @@ interface SheetProps {
   className?: string
 }
 
-/** Bottom sheet used for mobile filters and quick search. */
+/** Panneau bas utilisé sur mobile pour les filtres et la recherche rapide. */
 export function Sheet({ open, onOpenChange, title, description, children, className }: SheetProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -36,7 +36,7 @@ export function Sheet({ open, onOpenChange, title, description, children, classN
             </div>
             <Dialog.Close
               className="-mr-2 rounded-full p-2 text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground"
-              aria-label="Close"
+              aria-label="Fermer"
             >
               <X className="h-5 w-5" />
             </Dialog.Close>

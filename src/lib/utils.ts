@@ -5,16 +5,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-const usd = new Intl.NumberFormat('en-US', {
+const eur = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
-  currency: 'USD',
+  currency: 'EUR',
   maximumFractionDigits: 0,
 })
+const num = new Intl.NumberFormat('fr-FR')
 
-export const formatUSD = (n: number) => usd.format(n)
-export const formatNumber = (n: number) => n.toLocaleString('en-US')
+export const formatEUR = (n: number) => eur.format(n)
+export const formatNumber = (n: number) => num.format(n)
 
-/** Standard amortised loan payment, rounded to the dollar. */
+/** Mensualité d'un crédit amortissable classique, arrondie à l'euro. */
 export function monthlyPayment(principal: number, apr: number, termMonths: number) {
   if (principal <= 0) return 0
   const r = apr / 12
@@ -24,6 +25,14 @@ export function monthlyPayment(principal: number, apr: number, termMonths: numbe
 
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
-export const PHONE_DISPLAY = '(305) 555-0190'
-export const PHONE_HREF = 'tel:+13055550190'
-export const TOTAL_IN_STOCK = 340
+export const GARAGE_NAME = 'Apex Automobiles'
+export const PHONE_DISPLAY = '01 99 00 45 12'
+export const PHONE_HREF = 'tel:+33199004512'
+
+/** Conditions utilisées pour les mensualités affichées sur les annonces. */
+export const LISTING_APR = 0.059
+export const LISTING_TERM = 60
+
+/** Mention obligatoire pour toute publicité sur le crédit à la consommation. */
+export const CREDIT_WARNING =
+  'Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.'
