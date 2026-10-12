@@ -17,20 +17,20 @@ export function FinalCTA() {
         }}
       />
       <div className="container-site section-y relative flex flex-col gap-10 text-white lg:flex-row lg:items-center lg:justify-between">
-        <FadeUp className="max-w-3xl">
+        <FadeUp className="min-w-0 max-w-3xl lg:flex-1">
           <h2 className="h2 lg:text-[56px]">Un seul garage pour l’acheter et l’entretenir.</h2>
           <p className="mt-4 text-lg font-normal text-white/85">
             Essayez votre prochaine voiture cette semaine, et confiez-nous son entretien ensuite. Sur rendez-vous ou
             directement au garage.
           </p>
         </FadeUp>
-        <FadeUp i={2} className="flex flex-col items-start gap-5 lg:items-end">
+        <FadeUp i={2} className="flex shrink-0 flex-col items-start gap-5 lg:items-end">
           <a href="#occasions" className="btn bg-white px-8 py-4 text-base text-[#b00f1c] shadow-xl shadow-black/20 hover:bg-white/90">
             Voir les occasions
             <ArrowRight className="h-4 w-4" aria-hidden />
           </a>
-          <a href={PHONE_HREF} className="flex items-center gap-3 font-display text-3xl font-bold tabular-nums tracking-[-0.02em] md:text-4xl">
-            <Phone className="h-7 w-7" aria-hidden />
+          <a href={PHONE_HREF} className="flex items-center gap-3 whitespace-nowrap font-display text-3xl font-bold tabular-nums tracking-[-0.02em] md:text-4xl">
+            <Phone className="h-7 w-7 shrink-0" aria-hidden />
             {PHONE_DISPLAY}
           </a>
         </FadeUp>
