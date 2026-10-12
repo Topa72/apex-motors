@@ -34,7 +34,7 @@ export function Navbar() {
     <>
       <header
         className="fixed inset-x-0 top-0 z-40 h-[76px] border-b border-border backdrop-blur-xl transition-[background-color] duration-300"
-        style={{ backgroundColor: `rgba(18, 20, 26, ${scrolled || open ? 0.92 : 0.7})` }}
+        style={{ backgroundColor: `rgba(255, 255, 255, ${scrolled || open ? 0.94 : 0.78})` }}
       >
         <nav className="container-site flex h-full items-center justify-between gap-6" aria-label="Navigation principale">
           <Logo />

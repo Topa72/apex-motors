@@ -25,7 +25,7 @@ export function monthlyPayment(principal: number, apr: number, termMonths: numbe
 
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
-export const GARAGE_NAME = 'Apex Automobiles'
+export const GARAGE_NAME = 'Garage Citroën'
 export const PHONE_DISPLAY = '01 99 00 45 12'
 export const PHONE_HREF = 'tel:+33199004512'
 

@@ -85,7 +85,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
   const [sheetOpen, setSheetOpen] = useState(false)
 
   return (
-    <section id="top" className="relative isolate flex h-[85vh] min-h-[640px] items-center overflow-hidden md:h-screen md:min-h-[760px]">
+    <section id="top" className="relative isolate bg-background flex h-[85vh] min-h-[640px] items-center overflow-hidden md:h-screen md:min-h-[760px]">
       {/* Image : voiture moderne sur une route mouillée de nuit, reflets bleutés sur la carrosserie, photo automobile cinématographique */}
       <SmartImage
         src={images.hero}
@@ -97,10 +97,9 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(to right, rgba(18,20,26,0.95) 0%, rgba(18,20,26,0.6) 45%, rgba(18,20,26,0.25) 100%)',
+            'linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.86) 45%, rgba(255,255,255,0.15) 100%)',
         }}
       />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-background to-transparent" />
 
       <div className="w-full pl-6 pr-6 pt-[76px] md:pl-16 md:pr-10">
         <div className="mx-auto max-w-site">
@@ -111,7 +110,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT }}
             >
-              Garage Citroën · Atelier toutes marques · {inventory.length} occasions en stock
+              Entretien · Réparation · {inventory.length} occasions en stock
             </motion.p>
 
             <h1
@@ -160,18 +159,18 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
           {/* Recherche rapide : carte vitrée sur ordinateur, panneau sur mobile */}
           <motion.div
             className="mt-10 max-w-[920px] md:mt-12"
-            initial={{ opacity: 0, scale: 0.97, boxShadow: '0 0 0 0 rgba(10,144,255,0)' }}
-            animate={{ opacity: 1, scale: 1, boxShadow: '0 20px 80px -20px rgba(10,144,255,0.45)' }}
+            initial={{ opacity: 0, scale: 0.97, boxShadow: '0 0 0 0 rgba(211,18,31,0)' }}
+            animate={{ opacity: 1, scale: 1, boxShadow: '0 24px 70px -28px rgba(211,18,31,0.35)' }}
             transition={{ duration: 0.6, delay: 0.5, ease: EASE_OUT }}
             style={{ borderRadius: 16, transformOrigin: 'left center' }}
           >
-            <div className="hidden rounded-2xl border border-white/10 bg-[rgba(24,27,34,0.62)] p-3 backdrop-blur-xl md:block">
+            <div className="hidden rounded-2xl border border-border bg-white/80 p-3 backdrop-blur-xl md:block">
               <QuickSearchForm onSearch={onQuickSearch} />
             </div>
             <button
               type="button"
               onClick={() => setSheetOpen(true)}
-              className="flex h-14 w-full items-center gap-3 rounded-2xl border border-white/10 bg-[rgba(24,27,34,0.7)] px-5 text-left text-sm font-medium text-foreground/80 backdrop-blur-xl md:hidden"
+              className="flex h-14 w-full items-center gap-3 rounded-2xl border border-border bg-white/90 px-5 text-left text-sm font-medium text-foreground/80 backdrop-blur-xl md:hidden"
             >
               <Search className="h-5 w-5 text-primary" aria-hidden />
               Rechercher un véhicule

@@ -30,7 +30,7 @@ export function TradeIn() {
   }
 
   return (
-    <section id="reprise" className="bg-background">
+    <section id="reprise" className="bg-card">
       <div className="grid md:grid-cols-2">
         {/* Image : remise des clés au comptoir, faible profondeur de champ, lumière chaude du showroom */}
         <div className="relative h-[320px] overflow-hidden sm:h-[420px] md:h-auto md:min-h-full">
@@ -41,7 +41,7 @@ export function TradeIn() {
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-card/40" />
         </div>
 
         <div className="section-y px-6 md:px-10 lg:px-16">
@@ -63,7 +63,7 @@ export function TradeIn() {
             </ol>
 
             <FadeUp i={4} className="mt-10">
-              <div className="rounded-2xl border border-border bg-card p-5 md:p-6">
+              <div className="rounded-2xl border border-border bg-card-elevated p-5 md:p-6">
                 <AnimatePresence mode="wait" initial={false}>
                   {submitted ? (
                     <motion.div

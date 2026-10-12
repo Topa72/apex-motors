@@ -37,12 +37,12 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="bg-footer pt-16 md:pt-20">
+    <footer className="theme-dark bg-footer pt-16 md:pt-20">
       <div className="container-site">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-4 text-sm text-muted-foreground">Garage Citroën · Atelier toutes marques · Véhicules d’occasion</p>
+            <p className="mt-4 text-sm text-muted-foreground">Entretien, réparation et véhicules d’occasion · Atelier toutes marques</p>
             <ul className="mt-6 space-y-3 text-sm">
               <li className="flex gap-3">
                 <MapPin className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />

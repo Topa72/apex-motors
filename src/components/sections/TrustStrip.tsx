@@ -16,12 +16,12 @@ export function TrustStrip() {
           <li key={label} className="flex items-center gap-3 md:justify-center">
             <motion.span
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
-              initial={{ boxShadow: '0 0 0 0 rgba(10,144,255,0)' }}
+              initial={{ boxShadow: '0 0 0 0 rgba(211,18,31,0)' }}
               whileInView={{
                 boxShadow: [
-                  '0 0 0 0 rgba(10,144,255,0)',
-                  '0 0 22px 4px rgba(10,144,255,0.45)',
-                  '0 0 0 0 rgba(10,144,255,0)',
+                  '0 0 0 0 rgba(211,18,31,0)',
+                  '0 0 22px 4px rgba(211,18,31,0.45)',
+                  '0 0 0 0 rgba(211,18,31,0)',
                 ],
               }}
               viewport={{ once: true }}

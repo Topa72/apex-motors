@@ -1,14 +1,17 @@
-import { cn } from '@/lib/utils'
+import { Wrench } from 'lucide-react'
+import { GARAGE_NAME, cn } from '@/lib/utils'
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <a href="#top" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Apex Automobiles, accueil">
-      <span className="font-display text-[22px] font-extrabold leading-none tracking-[-0.03em]">APEX</span>
-      <svg viewBox="0 0 20 14" className="h-3.5 w-5 text-primary transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden>
-        <path d="M2 12 10 3l8 9" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-      <span className="font-sans text-[9px] font-semibold uppercase leading-none tracking-[0.32em] text-muted-foreground">
-        Automobiles
+    <a href="#top" className={cn('group inline-flex items-center gap-3', className)} aria-label={`${GARAGE_NAME}, accueil`}>
+      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform duration-300 group-hover:-rotate-6">
+        <Wrench className="h-[18px] w-[18px]" strokeWidth={2.5} aria-hidden />
+      </span>
+      <span className="flex flex-col leading-none">
+        <span className="font-display text-[19px] font-extrabold tracking-[-0.02em]">{GARAGE_NAME}</span>
+        <span className="mt-1 font-sans text-[9px] font-semibold uppercase tracking-[0.26em] text-muted-foreground">
+          Entretien · Occasions
+        </span>
       </span>
     </a>
   )

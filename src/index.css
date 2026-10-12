@@ -3,30 +3,46 @@
 @tailwind utilities;
 
 :root {
-  /* Channel values feed Tailwind's opacity modifiers (bg-background/95 etc.) */
-  --background-hsl: 220 14% 8%;
-  --foreground-hsl: 210 16% 95%;
-  --primary-hsl: 206 100% 52%;
+  /* Palette blanc et rouge. Les valeurs en canaux alimentent les opacités Tailwind (bg-primary/10, etc.). */
+  --background-hsl: 0 0% 100%;
+  --foreground-hsl: 220 16% 11%;
+  --primary-hsl: 356 84% 45%; /* rouge #d3121f */
   --primary-foreground-hsl: 0 0% 100%;
-  --muted-foreground-hsl: 215 10% 58%;
-  --border-hsl: 220 12% 20%;
-  --card-hsl: 220 13% 12%;
-  --card-elevated-hsl: 220 12% 16%;
-  --success-hsl: 152 62% 44%;
-  --footer-hsl: 220 16% 5%;
-
-  --background: hsl(220, 14%, 8%); /* #12141a near-black */
-  --foreground: hsl(210, 16%, 95%); /* #eff1f4 */
-  --primary: hsl(206, 100%, 52%); /* #0a90ff electric blue */
-  --primary-foreground: hsl(0, 0%, 100%);
-  --muted-foreground: hsl(215, 10%, 58%);
-  --border: hsl(220, 12%, 20%);
-  --card: hsl(220, 13%, 12%);
-  --card-elevated: hsl(220, 12%, 16%);
-  --success: hsl(152, 62%, 44%); /* availability badges */
+  --muted-foreground-hsl: 220 8% 42%;
+  --border-hsl: 220 13% 89%;
+  --card-hsl: 220 20% 97%; /* gris très clair pour alterner les sections */
+  --card-elevated-hsl: 0 0% 100%;
+  --success-hsl: 150 64% 34%;
+  --footer-hsl: 220 16% 9%;
 
   --nav-height: 76px;
+  color-scheme: light;
+}
+
+/* Zones sombres (photo de l'accueil, pied de page) : mêmes tokens, valeurs inversées. */
+.theme-dark {
+  --background-hsl: 220 16% 9%;
+  --foreground-hsl: 0 0% 98%;
+  --primary-hsl: 356 92% 58%;
+  --muted-foreground-hsl: 220 9% 66%;
+  --border-hsl: 220 12% 22%;
+  --card-hsl: 220 14% 13%;
+  --card-elevated-hsl: 220 13% 17%;
   color-scheme: dark;
+  color: hsl(var(--foreground-hsl));
+}
+
+:root,
+.theme-dark {
+  --background: hsl(var(--background-hsl));
+  --foreground: hsl(var(--foreground-hsl));
+  --primary: hsl(var(--primary-hsl));
+  --primary-foreground: hsl(var(--primary-foreground-hsl));
+  --muted-foreground: hsl(var(--muted-foreground-hsl));
+  --border: hsl(var(--border-hsl));
+  --card: hsl(var(--card-hsl));
+  --card-elevated: hsl(var(--card-elevated-hsl));
+  --success: hsl(var(--success-hsl));
 }
 
 @layer base {
@@ -39,7 +55,7 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
   }
 
@@ -93,7 +109,7 @@
   }
 
   .btn-ghost {
-    @apply btn border border-white/40 text-white hover:border-white hover:bg-white/10;
+    @apply btn border border-foreground/40 text-foreground hover:border-foreground hover:bg-foreground/10;
   }
 
   .btn-outline {
@@ -101,7 +117,7 @@
   }
 
   .field {
-    @apply h-12 w-full rounded-lg border border-border bg-background/70 px-4 font-sans text-sm font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground hover:border-white/25 focus:border-primary;
+    @apply h-12 w-full rounded-lg border border-border bg-background/70 px-4 font-sans text-sm font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground hover:border-foreground/30 focus:border-primary;
   }
 
   .no-scrollbar {

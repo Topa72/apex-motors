@@ -17,15 +17,15 @@ export function SmartImage({ className, label, alt, onError, ...props }: SmartIm
       <div
         role="img"
         aria-label={alt}
-        className={cn('relative flex items-end overflow-hidden bg-card-elevated', className)}
+        className={cn('relative flex items-end overflow-hidden bg-card', className)}
         style={{
           backgroundImage:
-            'radial-gradient(120% 70% at 70% 30%, hsl(206 100% 52% / 0.28), transparent 60%), radial-gradient(90% 40% at 50% 100%, hsl(206 100% 52% / 0.18), transparent 70%), linear-gradient(180deg, hsl(220 12% 16%), hsl(220 14% 8%))',
+            'radial-gradient(120% 70% at 70% 30%, hsl(var(--primary-hsl) / 0.06), transparent 60%), radial-gradient(90% 40% at 50% 100%, hsl(var(--foreground-hsl) / 0.08), transparent 70%), linear-gradient(180deg, hsl(var(--card-hsl)), hsl(var(--border-hsl)))',
         }}
       >
         <svg
           viewBox="0 0 400 120"
-          className="absolute left-1/2 top-1/2 w-3/4 max-w-md -translate-x-1/2 -translate-y-1/3 text-white/15"
+          className="absolute left-1/2 top-1/2 w-3/4 max-w-md -translate-x-1/2 -translate-y-1/3 text-foreground/15"
           aria-hidden
         >
           <path
@@ -36,7 +36,7 @@ export function SmartImage({ className, label, alt, onError, ...props }: SmartIm
           <circle cx="306" cy="92" r="24" fill="currentColor" />
         </svg>
         {label ? (
-          <span className="relative m-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40 transition-opacity duration-300 group-hover:opacity-0">
+          <span className="relative m-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/45 transition-opacity duration-300 group-hover:opacity-0">
             {label}
           </span>
         ) : null}

@@ -10,7 +10,7 @@ export function VehicleCard({ vehicle: v }: { vehicle: Vehicle }) {
   const name = vehicleName(v)
 
   return (
-    <div className="group h-full overflow-hidden rounded-xl border border-border bg-card transition-[border-color,box-shadow] duration-[250ms] hover:border-primary/30 hover:shadow-[0_24px_60px_-30px_rgba(10,144,255,0.45)]">
+    <div className="group h-full overflow-hidden rounded-xl border border-border bg-card transition-[border-color,box-shadow] duration-[250ms] hover:border-primary/30 hover:shadow-[0_24px_50px_-32px_rgba(211,18,31,0.35)]">
       <div className="relative aspect-[16/10] overflow-hidden">
         {/* Image : vue trois-quarts avant sur fond studio sombre, éclairage rasant, carrosserie brillante */}
         <SmartImage
@@ -22,7 +22,7 @@ export function VehicleCard({ vehicle: v }: { vehicle: Vehicle }) {
         />
         <span
           className="absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold"
-          style={{ background: 'var(--success)', color: '#04180f' }}
+          style={{ background: 'var(--success)', color: '#ffffff' }}
         >
           Disponible
         </span>

@@ -28,7 +28,7 @@ const hours = [
 
 export function Service() {
   return (
-    <section id="atelier" className="section-y bg-background">
+    <section id="atelier" className="section-y bg-card">
       <div className="container-site">
         <SectionHeading eyebrow="Atelier" title="Votre Citroën entre de bonnes mains">
           <p className="mt-4 max-w-2xl text-muted-foreground">
@@ -40,7 +40,7 @@ export function Service() {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {services.map(({ icon: Icon, title, body }, i) => (
             <FadeUp key={title} i={i}>
-              <article className="group flex h-full flex-col rounded-xl border border-border bg-card p-7 transition-colors duration-[250ms] hover:border-primary/30">
+              <article className="group flex h-full flex-col rounded-xl border border-border bg-card-elevated p-7 transition-colors duration-[250ms] hover:border-primary/30">
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-6 w-6" aria-hidden />
                 </span>
@@ -56,7 +56,7 @@ export function Service() {
         </div>
 
         <FadeUp i={3} className="mt-8">
-          <div className="flex flex-col gap-4 rounded-xl border border-border bg-card px-7 py-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 rounded-xl border border-border bg-card-elevated px-7 py-5 md:flex-row md:items-center md:justify-between">
             <p className="flex items-center gap-3 font-display text-base font-semibold">
               <Clock className="h-5 w-5 text-primary" aria-hidden />
               Horaires de l’atelier

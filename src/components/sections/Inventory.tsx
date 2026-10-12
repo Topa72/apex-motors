@@ -42,7 +42,7 @@ function TypeChips({ value, onChange, className }: { value: InventoryFilters['ty
             'h-10 shrink-0 rounded-full border px-4 text-sm font-medium transition-colors',
             value === t
               ? 'border-primary bg-primary text-primary-foreground'
-              : 'border-border bg-card text-foreground/80 hover:border-white/25 hover:text-foreground',
+              : 'border-border bg-card text-foreground/80 hover:border-foreground/30 hover:text-foreground',
           )}
         >
           {t}

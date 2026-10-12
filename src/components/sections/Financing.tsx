@@ -64,7 +64,7 @@ export function Financing() {
   }
 
   return (
-    <section id="financement" className="section-y relative bg-card">
+    <section id="financement" className="section-y relative bg-background">
       <div className="container-site grid items-center gap-12 md:grid-cols-2 md:gap-10 lg:gap-20">
         <div>
           <SectionHeading eyebrow="Financement" title="Connaissez votre mensualité avant de venir">
@@ -86,7 +86,7 @@ export function Financing() {
         </div>
 
         <FadeUp i={2}>
-          <div className="rounded-2xl border border-border bg-card-elevated p-6 shadow-[0_30px_80px_-40px_rgba(10,144,255,0.35)] md:p-6 lg:p-8">
+          <div className="rounded-2xl border border-border bg-card-elevated p-6 shadow-[0_30px_80px_-40px_rgba(211,18,31,0.18)] md:p-6 lg:p-8">
             <div className="space-y-7">
               <Field label="Prix du véhicule" value={formatEUR(price)}>
                 <Slider
@@ -176,7 +176,7 @@ export function Financing() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 16 }}
                 transition={{ duration: 0.2 }}
-                className="absolute bottom-0 left-0 right-0 flex items-center justify-between rounded-2xl border border-primary/40 bg-background/95 px-5 py-3 shadow-2xl shadow-black/60 backdrop-blur"
+                className="absolute bottom-0 left-0 right-0 flex items-center justify-between rounded-2xl border border-primary/40 bg-background/95 px-5 py-3 shadow-2xl shadow-black/20 backdrop-blur"
               >
                 <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Mensualité</span>
                 <span className="num text-2xl text-primary">{formatEUR(monthly)}</span>
