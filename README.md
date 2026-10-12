@@ -18,7 +18,8 @@ npm run lint     # oxlint
 
 | À changer | Fichier |
 | --- | --- |
-| Nom, adresse, téléphone, horaires, taux et durée des mensualités | `src/lib/utils.ts` (ou variables `VITE_*` dans un fichier `.env`) |
+| Nom, adresse, téléphone, horaires | `.env` |
+| Taux et durée des mensualités affichées | `src/lib/utils.ts` |
 | Véhicules en stock (prix, km, carburant, garantie…) | `src/data/inventory.ts` |
 | Photos (accueil, reprise, annonces) | `src/data/images.ts` + dossier `public/photos/` |
 | SIRET / ORIAS, mentions légales | `src/components/sections/Footer.tsx` |

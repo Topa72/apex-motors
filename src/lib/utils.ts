@@ -25,19 +25,16 @@ export function monthlyPayment(principal: number, apr: number, termMonths: numbe
 
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
-// Coordonnées du garage. Chaque valeur peut être remplacée par une variable VITE_* dans un fichier .env.
+// Coordonnées du garage : elles se règlent dans le fichier .env à la racine du projet.
 const env = import.meta.env
-export const GARAGE_NAME: string = env.VITE_GARAGE_NAME || 'Garage de la Champagne'
-export const GARAGE_TAGLINE: string = env.VITE_GARAGE_TAGLINE || 'Véhicules d’occasion'
+export const GARAGE_NAME: string = env.VITE_GARAGE_NAME ?? ''
+export const GARAGE_TAGLINE: string = env.VITE_GARAGE_TAGLINE ?? ''
 /** Statut dans le réseau Citroën, repris dans les textes. */
-export const NETWORK_LABEL: string = env.VITE_NETWORK_LABEL || 'réparateur agréé Citroën'
-export const GARAGE_CITY: string = env.VITE_GARAGE_CITY || 'Bernay-en-Champagne'
-export const ADDRESS_LINES: [string, string] = [
-  env.VITE_ADDRESS_LINE1 || 'Zone artisanale, rue du Mans',
-  env.VITE_ADDRESS_LINE2 || '72240 Bernay-en-Champagne',
-]
-export const OPENING_HOURS: string = env.VITE_OPENING_HOURS || 'Lun–ven 8h–12h · 14h–19h'
-export const PHONE_DISPLAY: string = env.VITE_PHONE || '02 43 20 74 34'
+export const NETWORK_LABEL: string = env.VITE_NETWORK_LABEL ?? ''
+export const GARAGE_CITY: string = env.VITE_GARAGE_CITY ?? ''
+export const ADDRESS_LINES: [string, string] = [env.VITE_ADDRESS_LINE1 ?? '', env.VITE_ADDRESS_LINE2 ?? '']
+export const OPENING_HOURS: string = env.VITE_OPENING_HOURS ?? ''
+export const PHONE_DISPLAY: string = env.VITE_PHONE ?? ''
 export const PHONE_HREF = `tel:+33${PHONE_DISPLAY.replace(/\D/g, '').replace(/^0/, '')}`
 export const MAPS_HREF = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `${GARAGE_NAME} ${ADDRESS_LINES.join(' ')}`,
