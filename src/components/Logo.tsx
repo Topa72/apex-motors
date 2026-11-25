@@ -1,9 +1,9 @@
 import { Wrench } from 'lucide-react'
 import { GARAGE_NAME, GARAGE_TAGLINE, cn } from '@/lib/utils'
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, href = '#top' }: { className?: string; href?: string }) {
   return (
-    <a href="#top" className={cn('group inline-flex shrink-0 items-center gap-3', className)} aria-label={`${GARAGE_NAME}, accueil`}>
+    <a href={href} className={cn('group inline-flex shrink-0 items-center gap-3', className)} aria-label={`${GARAGE_NAME}, accueil`}>
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform duration-300 group-hover:-rotate-6">
         <Wrench className="h-[18px] w-[18px]" strokeWidth={2.5} aria-hidden />
       </span>

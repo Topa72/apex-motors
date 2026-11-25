@@ -1,10 +1,11 @@
-import { ShieldCheck } from 'lucide-react'
+import { Camera, ShieldCheck } from 'lucide-react'
 import { SmartImage } from '@/components/SmartImage'
 import { vehicleImages } from '@/data/images'
 import { vehicleMonthly, vehicleName, type Vehicle } from '@/data/inventory'
+import { photoUrl } from '@/lib/api'
 import { formatEUR, formatNumber } from '@/lib/utils'
 
-const critAirLabel = (n: Vehicle['critAir']) => (n === 0 ? '0 · Élec.' : String(n))
+const critAirLabel = (n: Vehicle['critAir']) => (n === null ? 'N.C.' : n === 0 ? '0 · Élec.' : String(n))
 
 export function VehicleCard({ vehicle: v }: { vehicle: Vehicle }) {
   const name = vehicleName(v)
@@ -14,7 +15,7 @@ export function VehicleCard({ vehicle: v }: { vehicle: Vehicle }) {
       <div className="relative aspect-[16/10] overflow-hidden">
         {/* Image : vue trois-quarts avant sur fond studio sombre, éclairage rasant, carrosserie brillante */}
         <SmartImage
-          src={vehicleImages[v.id]}
+          src={v.photos[0] ? photoUrl(v.photos[0]) : vehicleImages[v.id]}
           alt={`${name} ${v.version}, vue extérieure`}
           label={name}
           loading="lazy"
@@ -29,6 +30,13 @@ export function VehicleCard({ vehicle: v }: { vehicle: Vehicle }) {
         <span className="absolute right-3 top-3 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur">
           Garantie {v.warrantyMonths} mois
         </span>
+
+        {v.photos.length > 1 && (
+          <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur transition-opacity group-hover:opacity-0">
+            <Camera className="h-3 w-3" aria-hidden />
+            {v.photos.length}
+          </span>
+        )}
 
         {/* Caractéristiques au survol */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/90 via-black/75 to-transparent px-4 pb-3 pt-10 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">

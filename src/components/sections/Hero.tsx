@@ -5,7 +5,7 @@ import { SmartImage } from '@/components/SmartImage'
 import { Sheet } from '@/components/ui/sheet'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { images } from '@/data/images'
-import { MAKES, inventory, type InventoryFilters, type Make } from '@/data/inventory'
+import { ALL_MAKES, type InventoryFilters } from '@/data/inventory'
 import { EASE_OUT, GARAGE_CITY, NETWORK_LABEL, cn, formatEUR } from '@/lib/utils'
 
 const h1Lines = ['Révisé. Garanti.', 'Prêt à rouler', 'dès aujourd’hui.']
@@ -13,8 +13,8 @@ const paymentCaps = [150, 200, 250, 300, 400, 500]
 
 export type QuickSearch = Pick<InventoryFilters, 'make' | 'model' | 'maxMonthly'>
 
-function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => void; stacked?: boolean }) {
-  const [make, setMake] = useState<'Toutes' | Make>('Toutes')
+function QuickSearchForm({ makes, onSearch, stacked }: { makes: string[]; onSearch: (q: QuickSearch) => void; stacked?: boolean }) {
+  const [make, setMake] = useState(ALL_MAKES)
   const [model, setModel] = useState('')
   const [maxMonthly, setMaxMonthly] = useState('any')
 
@@ -33,13 +33,13 @@ function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => 
     >
       <label className="block">
         <span className="sr-only">Marque</span>
-        <Select value={make} onValueChange={(v) => setMake(v as 'Toutes' | Make)}>
+        <Select value={make} onValueChange={setMake}>
           <SelectTrigger className={fieldTrigger} aria-label="Marque">
             <SelectValue placeholder="Marque" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Toutes">Toutes marques</SelectItem>
-            {MAKES.map((m) => (
+            <SelectItem value={ALL_MAKES}>Toutes marques</SelectItem>
+            {makes.map((m) => (
               <SelectItem key={m} value={m}>
                 {m}
               </SelectItem>
@@ -81,7 +81,16 @@ function QuickSearchForm({ onSearch, stacked }: { onSearch: (q: QuickSearch) => 
   )
 }
 
-export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => void }) {
+export function Hero({
+  makes,
+  stockCount,
+  onQuickSearch,
+}: {
+  makes: string[]
+  /** null pendant le chargement. */
+  stockCount: number | null
+  onQuickSearch: (q: QuickSearch) => void
+}) {
   const [sheetOpen, setSheetOpen] = useState(false)
 
   return (
@@ -110,7 +119,8 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT }}
             >
-              {GARAGE_CITY} · {inventory.length} occasions en stock
+              {GARAGE_CITY}
+              {stockCount ? ` · ${stockCount} occasion${stockCount > 1 ? 's' : ''} en stock` : ' · Véhicules d’occasion'}
             </motion.p>
 
             <h1
@@ -165,7 +175,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
             style={{ borderRadius: 16, transformOrigin: 'left center' }}
           >
             <div className="hidden rounded-2xl border border-border bg-white/80 p-3 backdrop-blur-xl md:block">
-              <QuickSearchForm onSearch={onQuickSearch} />
+              <QuickSearchForm makes={makes} onSearch={onQuickSearch} />
             </div>
             <button
               type="button"
@@ -186,6 +196,7 @@ export function Hero({ onQuickSearch }: { onQuickSearch: (q: QuickSearch) => voi
         description="Par marque, par modèle ou par la mensualité qui rentre dans votre budget."
       >
         <QuickSearchForm
+          makes={makes}
           stacked
           onSearch={(q) => {
             setSheetOpen(false)

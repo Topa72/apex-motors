@@ -7,23 +7,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet } from '@/components/ui/sheet'
 import { Slider } from '@/components/ui/slider'
 import {
-  MAKES,
-  PRICE_MAX,
-  PRICE_MIN,
+  ALL_MAKES,
   VEHICLE_TYPES,
   defaultFilters,
-  inventory,
+  makesIn,
   matchesFilters,
+  priceBounds,
   type InventoryFilters,
-  type Make,
   type VehicleType,
 } from '@/data/inventory'
+import type { VehiclesState } from '@/data/useVehicles'
 import { EASE_OUT, LISTING_APR, LISTING_TERM, PHONE_HREF, cn, formatEUR } from '@/lib/utils'
 
 const PAGE = 9
 const types = ['Tous', ...VEHICLE_TYPES] as const
 
 interface InventoryProps {
+  stock: VehiclesState
   filters: InventoryFilters
   setFilters: Dispatch<SetStateAction<InventoryFilters>>
 }
@@ -52,16 +52,16 @@ function TypeChips({ value, onChange, className }: { value: InventoryFilters['ty
   )
 }
 
-function MakeSelect({ value, onChange, className }: { value: InventoryFilters['make']; onChange: (m: InventoryFilters['make']) => void; className?: string }) {
+function MakeSelect({ makes, value, onChange, className }: { makes: string[]; value: string; onChange: (m: string) => void; className?: string }) {
   return (
-    <Select value={value} onValueChange={(v) => onChange(v as 'Toutes' | Make)}>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger className={className} aria-label="Marque">
         <span className="text-muted-foreground">Marque :</span>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="Toutes">Toutes</SelectItem>
-        {MAKES.map((m) => (
+        <SelectItem value={ALL_MAKES}>Toutes</SelectItem>
+        {makes.map((m) => (
           <SelectItem key={m} value={m}>
             {m}
           </SelectItem>
@@ -71,30 +71,45 @@ function MakeSelect({ value, onChange, className }: { value: InventoryFilters['m
   )
 }
 
-function PriceSlider({ value, onChange, className }: { value: number; onChange: (n: number) => void; className?: string }) {
+function PriceSlider({
+  bounds,
+  value,
+  onChange,
+  className,
+}: {
+  bounds: { min: number; max: number }
+  value: number | null
+  onChange: (n: number | null) => void
+  className?: string
+}) {
+  const current = Math.min(value ?? bounds.max, bounds.max)
   return (
     <div className={cn('flex items-center gap-4', className)}>
       <label htmlFor="max-price" className="shrink-0 text-sm text-muted-foreground">
-        Prix max. <span className="num ml-1 inline-block min-w-[76px] text-foreground">{formatEUR(value)}</span>
+        Prix max. <span className="num ml-1 inline-block min-w-[76px] text-foreground">{formatEUR(current)}</span>
       </label>
       <Slider
         id="max-price"
         aria-label="Prix maximum"
-        min={PRICE_MIN}
-        max={PRICE_MAX}
+        min={bounds.min}
+        max={bounds.max}
         step={500}
-        value={[value]}
-        onValueChange={([n]) => onChange(n)}
+        value={[current]}
+        // Curseur tout à droite = pas de plafond, pour ne jamais masquer une annonce plus chère.
+        onValueChange={([n]) => onChange(n >= bounds.max ? null : n)}
       />
     </div>
   )
 }
 
-export function Inventory({ filters, setFilters }: InventoryProps) {
+export function Inventory({ stock, filters, setFilters }: InventoryProps) {
   const [visible, setVisible] = useState(PAGE)
   const [sheetOpen, setSheetOpen] = useState(false)
 
-  const filtered = useMemo(() => inventory.filter((v) => matchesFilters(v, filters)), [filters])
+  const vehicles = stock.vehicles
+  const makes = useMemo(() => makesIn(vehicles), [vehicles])
+  const bounds = useMemo(() => priceBounds(vehicles), [vehicles])
+  const filtered = useMemo(() => vehicles.filter((v) => matchesFilters(v, filters)), [vehicles, filters])
   const shown = filtered.slice(0, visible)
 
   const update = (patch: Partial<InventoryFilters>) => {
@@ -104,8 +119,8 @@ export function Inventory({ filters, setFilters }: InventoryProps) {
   const reset = () => update(defaultFilters)
   const isDirty =
     filters.type !== 'Tous' ||
-    filters.make !== 'Toutes' ||
-    filters.maxPrice !== PRICE_MAX ||
+    filters.make !== ALL_MAKES ||
+    filters.maxPrice !== null ||
     filters.maxMonthly !== null ||
     filters.model.trim() !== ''
 
@@ -157,8 +172,9 @@ export function Inventory({ filters, setFilters }: InventoryProps) {
                 ))}
               </SelectContent>
             </Select>
-            <MakeSelect value={filters.make} onChange={(make) => update({ make })} />
+            <MakeSelect makes={makes} value={filters.make} onChange={(make) => update({ make })} />
             <PriceSlider
+              bounds={bounds}
               value={filters.maxPrice}
               onChange={(maxPrice) => update({ maxPrice })}
               className="w-[340px] rounded-full border border-border bg-card px-4 lg:w-[380px]"
@@ -232,7 +248,40 @@ export function Inventory({ filters, setFilters }: InventoryProps) {
           </AnimatePresence>
         </motion.div>
 
-        {filtered.length === 0 && (
+        {stock.status === 'loading' && (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" aria-label="Chargement des annonces">
+            {Array.from({ length: 3 }, (_, i) => (
+              <div key={i} className="overflow-hidden rounded-xl border border-border bg-card">
+                <div className="aspect-[16/10] animate-pulse bg-foreground/5" />
+                <div className="space-y-3 p-5">
+                  <div className="h-5 w-2/3 animate-pulse rounded bg-foreground/10" />
+                  <div className="h-4 w-1/2 animate-pulse rounded bg-foreground/5" />
+                  <div className="h-7 w-1/3 animate-pulse rounded bg-foreground/10" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {stock.status !== 'loading' && vehicles.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-border px-6 py-16 text-center">
+            <p className="font-display text-xl font-semibold">
+              {stock.status === 'error'
+                ? 'Le stock n’a pas pu être chargé.'
+                : 'Nos prochaines occasions arrivent bientôt.'}
+            </p>
+            <p className="mx-auto mt-2 max-w-md text-muted-foreground">
+              {stock.status === 'error'
+                ? 'Rechargez la page dans un instant, ou appelez-nous pour connaître les véhicules disponibles.'
+                : 'Appelez-nous : nous pouvons vous dire ce qui arrive cette semaine, ou chercher le véhicule pour vous.'}
+            </p>
+            <a href={PHONE_HREF} className="btn-primary mt-6">
+              Nous appeler
+            </a>
+          </div>
+        )}
+
+        {vehicles.length > 0 && filtered.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -277,11 +326,11 @@ export function Inventory({ filters, setFilters }: InventoryProps) {
           </div>
           <div>
             <p className="eyebrow mb-3">Marque</p>
-            <MakeSelect value={filters.make} onChange={(make) => update({ make })} className="h-12 w-full justify-between" />
+            <MakeSelect makes={makes} value={filters.make} onChange={(make) => update({ make })} className="h-12 w-full justify-between" />
           </div>
           <div>
             <p className="eyebrow mb-3">Prix</p>
-            <PriceSlider value={filters.maxPrice} onChange={(maxPrice) => update({ maxPrice })} className="flex-col items-stretch gap-3" />
+            <PriceSlider bounds={bounds} value={filters.maxPrice} onChange={(maxPrice) => update({ maxPrice })} className="flex-col items-stretch gap-3" />
           </div>
           {activeExtras.length > 0 && (
             <div className="flex flex-wrap gap-2">

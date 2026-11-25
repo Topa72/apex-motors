@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Navbar } from '@/components/sections/Navbar'
 import { Hero, type QuickSearch } from '@/components/sections/Hero'
 import { TrustStrip } from '@/components/sections/TrustStrip'
@@ -9,10 +9,13 @@ import { HowItWorks } from '@/components/sections/HowItWorks'
 import { Reviews } from '@/components/sections/Reviews'
 import { FinalCTA } from '@/components/sections/FinalCTA'
 import { Footer } from '@/components/sections/Footer'
-import { defaultFilters, type InventoryFilters } from '@/data/inventory'
+import { defaultFilters, makesIn, type InventoryFilters } from '@/data/inventory'
+import { useVehicles } from '@/data/useVehicles'
 
 export default function App() {
   const [filters, setFilters] = useState<InventoryFilters>(defaultFilters)
+  const stock = useVehicles()
+  const makes = useMemo(() => makesIn(stock.vehicles), [stock.vehicles])
 
   const handleQuickSearch = useCallback((q: QuickSearch) => {
     setFilters({ ...defaultFilters, ...q })
@@ -29,9 +32,13 @@ export default function App() {
       </a>
       <Navbar />
       <main>
-        <Hero onQuickSearch={handleQuickSearch} />
+        <Hero
+          makes={makes}
+          stockCount={stock.status === 'loading' ? null : stock.vehicles.length}
+          onQuickSearch={handleQuickSearch}
+        />
         <TrustStrip />
-        <Inventory filters={filters} setFilters={setFilters} />
+        <Inventory stock={stock} filters={filters} setFilters={setFilters} />
         <Financing />
         <TradeIn />
         <HowItWorks />

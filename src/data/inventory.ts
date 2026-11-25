@@ -1,37 +1,20 @@
 import { LISTING_APR, LISTING_TERM, monthlyPayment } from '@/lib/utils'
+import type { Vehicle, VehicleType } from '../../shared/vehicle.ts'
 
-export const VEHICLE_TYPES = ['Citadine', 'Berline', 'SUV', 'Familiale', 'Électrique', 'Utilitaire'] as const
-export type VehicleType = (typeof VEHICLE_TYPES)[number]
-
-export const MAKES = ['Citroën', 'Dacia', 'Peugeot', 'Renault', 'Toyota', 'Volkswagen'] as const
-export type Make = (typeof MAKES)[number]
-
-export type Fuel = 'Essence' | 'Diesel' | 'Hybride' | 'Hybride rechargeable' | 'Électrique'
-export type Gearbox = 'Manuelle' | 'Automatique'
-
-export interface Vehicle {
-  id: string
-  year: number
-  make: Make
-  model: string
-  version: string
-  type: VehicleType
-  km: number
-  fuel: Fuel
-  gearbox: Gearbox
-  /** Vignette Crit'Air (0 = véhicule électrique). */
-  critAir: 0 | 1 | 2
-  warrantyMonths: number
-  price: number
-}
+export { CRIT_AIR_VALUES, FUELS, GEARBOXES, MAKE_SUGGESTIONS, VEHICLE_TYPES } from '../../shared/vehicle.ts'
+export type { Fuel, Gearbox, Vehicle, VehicleInput, VehicleType } from '../../shared/vehicle.ts'
 
 export const vehicleName = (v: Vehicle) => `${v.make} ${v.model}`
 
 /** Mensualité indicative sur 60 mois, sans apport. */
 export const vehicleMonthly = (v: Vehicle) => monthlyPayment(v.price, LISTING_APR, LISTING_TERM)
 
-/** Les neuf premiers forment la grille affichée ; les suivants arrivent avec « Voir plus ». */
-export const inventory: Vehicle[] = [
+/**
+ * Annonces d'exemple, affichées seulement quand le site tourne sans l'API Netlify
+ * (aperçu, `vite preview`). En ligne, la liste vient de ce que le garagiste saisit dans /admin.
+ */
+type SampleRow = Omit<Vehicle, 'photos' | 'createdAt' | 'updatedAt'>
+const sampleRows: SampleRow[] = [
   { id: 'c3-2022', year: 2022, make: 'Citroën', model: 'C3', version: '1.2 PureTech 83 Feel Pack', type: 'Citadine', km: 28400, fuel: 'Essence', gearbox: 'Manuelle', critAir: 1, warrantyMonths: 12, price: 13990 },
   { id: 'c3-aircross-2021', year: 2021, make: 'Citroën', model: 'C3 Aircross', version: '1.2 PureTech 110 Shine', type: 'SUV', km: 41200, fuel: 'Essence', gearbox: 'Manuelle', critAir: 1, warrantyMonths: 12, price: 16490 },
   { id: 'c5-aircross-2021', year: 2021, make: 'Citroën', model: 'C5 Aircross', version: '1.5 BlueHDi 130 EAT8 Feel', type: 'SUV', km: 63800, fuel: 'Diesel', gearbox: 'Automatique', critAir: 2, warrantyMonths: 12, price: 22900 },
@@ -52,23 +35,30 @@ export const inventory: Vehicle[] = [
   { id: 'ami-2023', year: 2023, make: 'Citroën', model: 'Ami', version: '100 % électrique', type: 'Électrique', km: 3100, fuel: 'Électrique', gearbox: 'Automatique', critAir: 0, warrantyMonths: 24, price: 7490 },
 ]
 
+export const sampleInventory: Vehicle[] = sampleRows.map((v) => ({
+  ...v,
+  photos: [],
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
+}))
+
 export interface InventoryFilters {
   type: 'Tous' | VehicleType
-  make: 'Toutes' | Make
-  maxPrice: number
+  make: string
+  /** null = pas de plafond. */
+  maxPrice: number | null
   /** Renseigné par la recherche rapide ; null = pas de plafond. */
   maxMonthly: number | null
   /** Recherche libre sur le modèle, depuis la recherche rapide. */
   model: string
 }
 
-export const PRICE_MIN = 5000
-export const PRICE_MAX = 40000
+export const ALL_MAKES = 'Toutes'
 
 export const defaultFilters: InventoryFilters = {
   type: 'Tous',
-  make: 'Toutes',
-  maxPrice: PRICE_MAX,
+  make: ALL_MAKES,
+  maxPrice: null,
   maxMonthly: null,
   model: '',
 }
@@ -84,9 +74,25 @@ export function matchesFilters(v: Vehicle, f: InventoryFilters) {
   const model = normalize(f.model)
   return (
     (f.type === 'Tous' || v.type === f.type) &&
-    (f.make === 'Toutes' || v.make === f.make) &&
-    v.price <= f.maxPrice &&
+    (f.make === ALL_MAKES || v.make === f.make) &&
+    (f.maxPrice === null || v.price <= f.maxPrice) &&
     (f.maxMonthly === null || vehicleMonthly(v) <= f.maxMonthly) &&
     (model === '' || normalize(`${v.model} ${v.version}`).includes(model))
+  )
+}
+
+/** Bornes du curseur de prix, arrondies au millier, calculées sur le stock réel. */
+export function priceBounds(vehicles: Vehicle[]) {
+  if (vehicles.length === 0) return { min: 0, max: 10000 }
+  const prices = vehicles.map((v) => v.price)
+  const min = Math.floor(Math.min(...prices) / 1000) * 1000
+  const max = Math.max(min + 1000, Math.ceil(Math.max(...prices) / 1000) * 1000)
+  return { min, max }
+}
+
+/** Marques présentes dans le stock, Citroën en premier. */
+export function makesIn(vehicles: Vehicle[]) {
+  return [...new Set(vehicles.map((v) => v.make))].sort((a, b) =>
+    a === 'Citroën' ? -1 : b === 'Citroën' ? 1 : a.localeCompare(b, 'fr'),
   )
 }

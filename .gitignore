@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Données de l'API locale (npm run dev) et dossier Netlify
+.netlify-local
+.netlify
